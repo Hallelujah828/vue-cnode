@@ -1,61 +1,38 @@
 <template>
-  <div class="list-wrap"
-  v-infinite-scroll="loadMore"
-  infinite-scroll-disabled="loading"
-  infinite-scroll-distance="10">
+  <div class="list-wrap">
     <div v-for="(item, index) in list" :key="index" class="list-item">
-      <div class="list-head inline-flex">
-        <img :src="item.author.avatar_url" class="list-avator"/>
-        <span class="list-tag" :class="{'top-tag': item.top}">{{item.tab}}</span>
-        <p class="list-name">{{item.author.loginname}}</p>
-      </div>
-      <p class="list-content overflow-line">{{item.title}}</p>
-      <div class="list-btm inline-flex">
-        <p><span class="purple-txt">{{item.reply_count}}</span>/{{item.visit_count}}</p>
-        <p>{{item.time}}前</p>
-      </div>
+      <router-link :to="{name:'Detail',params:{id:item.id}}">
+        <div class="list-head inline-flex">
+          <img :src="item.author.avatar_url" class="com-avator"/>
+          <span class="com-tag top-tag" v-if="item.top">置顶</span>
+          <span class="com-tag good-tag" v-else-if="item.good">精华</span>
+          <span class="com-tag" v-else>{{item.tab | tabFormat}}</span>
+          <p class="list-name">{{item.author.loginname}}</p>
+        </div>
+        <p class="list-content overflow-line">{{item.title}}</p>
+        <div class="list-btm inline-flex">
+          <p><span class="purple-txt">{{item.reply_count}}</span>/{{item.visit_count}}</p>
+          <p>{{item.last_reply_at | timeFormat}}</p>
+        </div>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
 
 export default {
   name: 'List',
   data () {
-    return {
-      list: []
-    }
+    return {}
   },
-  computed: {},
-  methods: {
-    loadMore () {
-      if (this.loading) {
-        return false
+  props: {
+    list: {
+      type: Array,
+      default () {
+        return []
       }
-      this.loading = true
-      setTimeout(() => {
-        this.loading = false
-      }, 2500)
     }
-  },
-  created () {
-    axios
-      .get('https://cnodejs.org/api/v1/topics', {
-        params: {
-          page: 1,
-          tab: '',
-          limit: 20,
-          mdrender: true
-        }
-      })
-      .then((response) => {
-        this.list = response.data.data
-      })
-      .catch(function (error) {
-        console.log(error)
-      })
   }
 }
 </script>
@@ -64,7 +41,8 @@ export default {
 .list-wrap {
   display: flex;
   flex-direction: column;
-  padding-top: 3.875rem;
+  padding-top: 3.75rem;
+  background: #fff;
 }
 .list-item {
   width: 100%;
@@ -76,25 +54,7 @@ export default {
   display: flex;
   align-items: center;
 }
-.list-avator {
-  width: 2.5rem;
-  height: 2.5rem;
-  border-radius: 5px;
-  overflow: hidden;
-  background: #eee;
-}
-.list-tag {
-  margin-left: 0.625rem;
-  font-size: 0.875rem;
-  padding: 0.25rem;
-  border-radius: 4px;
-  background-color: #e5e5e5;
-  color: #999;
-}
-.top-tag {
-  color: #fff;
-  background: #80bd01;
-}
+
 .list-name {
   margin-left: 0.625rem;
   color: #444;
@@ -102,6 +62,7 @@ export default {
 .list-content {
   margin-top: 0.375rem;
   line-height: 1.2;
+  color: #444;
 }
 .list-btm {
   justify-content: space-between;

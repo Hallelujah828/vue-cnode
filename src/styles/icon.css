@@ -1,10 +1,10 @@
 @font-face {
   font-family: 'iconfont';  /* project id 618216 */
-  src: url('//at.alicdn.com/t/font_618216_4c9smk15646g8pvi.eot');
-  src: url('//at.alicdn.com/t/font_618216_4c9smk15646g8pvi.eot?#iefix') format('embedded-opentype'),
-  url('//at.alicdn.com/t/font_618216_4c9smk15646g8pvi.woff') format('woff'),
-  url('//at.alicdn.com/t/font_618216_4c9smk15646g8pvi.ttf') format('truetype'),
-  url('//at.alicdn.com/t/font_618216_4c9smk15646g8pvi.svg#iconfont') format('svg');
+  src: url('//at.alicdn.com/t/font_618216_9sypwqveagz7u8fr.eot');
+  src: url('//at.alicdn.com/t/font_618216_9sypwqveagz7u8fr.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_618216_9sypwqveagz7u8fr.woff') format('woff'),
+  url('//at.alicdn.com/t/font_618216_9sypwqveagz7u8fr.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_618216_9sypwqveagz7u8fr.svg#iconfont') format('svg');
 }
 
 .iconfont {
@@ -21,4 +21,11 @@
 .icon-list:before { content: '\e6b5'; }
 .icon-smile:before { content: '\e6af'; }
 .icon-search:before { content: '\e6ac'; }
+.icon-token:before { content: '\e65d'; }
+.icon-clock:before { content: '\e6bb'; }
+.icon-comments:before { content: '\e69b'; }
+.icon-browse:before { content: '\e6e6'; }
+.icon-tag:before { content: '\e6c5'; }
+.icon-collect:before { content: '\e6a0'; }
+.icon-good:before { content: '\e717'; }
 

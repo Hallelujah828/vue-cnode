@@ -9,7 +9,7 @@
       <Nav :nav="nav" :navWrap="navWrap" :curIndex="curIndex" @changeNavs="changeNavs"></Nav>
     </header>
     <keep-alive>
-      <router-view/>
+      <router-view></router-view>
     </keep-alive>
   </div>
 </template>
@@ -37,6 +37,16 @@ export default {
   methods: {
     changeNavs (index) {
       this.curIndex = index
+    }
+  },
+  created () {
+    let route = this.$route.name
+    if (route === 'Login') {
+      this.curIndex = 2
+    } else if (route === 'About') {
+      this.curIndex = 1
+    } else if (route === 'Index') {
+      this.curIndex = 0
     }
   }
 }
@@ -88,7 +98,53 @@ header {
   color: rgb(204, 204, 204);
 }
 
+.navWrap li{
+  flex: 1;
+}
+
+.navWrap li>a{
+  display: block;
+  text-align: center;
+}
+
 .nav-active{
   color: #fff;
+}
+
+.panel-wrap {
+  width: 98%;
+  overflow: hidden;
+  padding-top: 8.625rem;
+  margin: 0 auto;
+}
+.com-avator {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 5px;
+  overflow: hidden;
+  background: #eee;
+}
+.com-tag {
+  margin-left: 0.625rem;
+  font-size: 0.875rem;
+  padding: 0.25rem;
+  border-radius: 4px;
+  background-color: #e5e5e5;
+  color: #999;
+}
+.com-line-tag{
+  font-size: .8125rem;
+  padding: 0 0.25rem;
+  border-radius: 4px;
+  border: 1px solid #999;
+  box-sizing: border-box;
+}
+.top-tag {
+  color: #fff;
+  background: #80bd01;
+}
+.good-tag {
+  color: #fff;
+  background: #e6be68;
 }
 </style>

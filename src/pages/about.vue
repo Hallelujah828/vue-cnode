@@ -1,5 +1,5 @@
 <template>
-  <div class="content">
+  <div class="panel-wrap">
     关于内容
   </div>
 </template>
