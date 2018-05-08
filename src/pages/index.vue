@@ -10,27 +10,27 @@
     <mt-tab-container v-model="selected">
       <mt-tab-container-item id="all">
         <keep-alive>
-          <allList :list="allList"></allList>
+          <all-list :list="allList.value"></all-list>
         </keep-alive>
       </mt-tab-container-item>
       <mt-tab-container-item id="good">
         <keep-alive>
-          <goodList :list="goodList"></goodList>
+          <good-list :list="goodList.value"></good-list>
         </keep-alive>
       </mt-tab-container-item>
       <mt-tab-container-item id="share">
         <keep-alive>
-          <shareList :list="shareList"></shareList>
+          <share-list :list="shareList.value"></share-list>
         </keep-alive>
       </mt-tab-container-item>
       <mt-tab-container-item id="ask">
         <keep-alive>
-          <askList :list="askList"></askList>
+          <ask-list :list="askList.value"></ask-list>
         </keep-alive>
       </mt-tab-container-item>
       <mt-tab-container-item id="job">
         <keep-alive>
-          <jobList :list="jobList"></jobList>
+          <job-list :list="jobList.value"></job-list>
         </keep-alive>
       </mt-tab-container-item>
     </mt-tab-container>
@@ -39,7 +39,7 @@
 
 <script>
 import List from '@/components/List'
-import { mapState, mapGetters } from 'vuex'
+import { mapState } from 'vuex'
 
 export default {
   name: 'Index',
@@ -49,11 +49,11 @@ export default {
     }
   },
   components: {
-    allList: List,
-    goodList: List,
-    shareList: List,
-    askList: List,
-    jobList: List
+    'all-list': List,
+    'good-list': List,
+    'share-list': List,
+    'ask-list': List,
+    'job-list': List
   },
   beforeRouteEnter (to, from, next) {
     next(vm => {
@@ -66,23 +66,21 @@ export default {
   },
   watch: {
     selected: function (value) {
-      this.$router.push({ name: 'Index', query: { tab: value } })
-      if (value === 'all' && this.allList.length === 0) {
-        this.getTopic(value)
-      } else if (value === 'good' && this.goodList.length === 0) {
-        this.getTopic(value)
-      } else if (value === 'share' && this.shareList.length === 0) {
-        this.getTopic(value)
-      } else if (value === 'ask' && this.askList.length === 0) {
-        this.getTopic(value)
-      } else if (value === 'job' && this.jobList.length === 0) {
-        this.getTopic(value)
+      let arr = ['all', 'good', 'share', 'ask', 'job']
+      if (arr.includes(value)) {
+        this.$router.push({ name: 'Index', query: { tab: value } })
+        if (this[`${value}List`].value.length === 0) {
+          this.getTopic(value)
+        }
+      } else {
+        this.$router.replace({ name: 'Index', query: null })
+        this.$router.go(0)
       }
     }
   },
   methods: {
     getTopic (tab) {
-      let params = {tab: tab, page: `${tab}Page`}
+      let params = {tab: tab, page: this[`${tab}List`].page}
       this.$store.dispatch('getTopicsList', params)
     },
     scrollTopicList () {
@@ -94,25 +92,17 @@ export default {
   },
   computed: {
     ...mapState({
-      allPage: state => state.topic.allList.page,
-      goodPage: state => state.topic.goodList.page,
-      sharePage: state => state.topic.shareList.page,
-      askPage: state => state.topic.askList.page,
-      jobPage: state => state.topic.jobList.page
-    }),
-    ...mapGetters({
-      allList: 'allValue',
-      goodList: 'goodValue',
-      shareList: 'shareValue',
-      askList: 'askValue',
-      jobList: 'jobValue'
+      allList: state => state.topic.allList,
+      goodList: state => state.topic.goodList,
+      shareList: state => state.topic.shareList,
+      askList: state => state.topic.askList,
+      jobList: state => state.topic.jobList
     })
   },
   created () {
     this.selected = this.$route.query.tab || 'all'
-    if (this.allList.length === 0) {
-      let params = {tab: 'all', page: 0}
-      this.$store.dispatch('getTopicsList', params)
+    if (this.allList.value.length === 0) {
+      this.getTopic('all')
     }
   }
 }

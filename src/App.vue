@@ -24,7 +24,7 @@ export default {
       search: '',
       nav: [
         {name: '首页', url: '/', query: null},
-        {name: '关于', url: '/about', query: null},
+        {name: '发帖', url: '/post', query: null},
         {name: '登录', url: '/login', query: null}
       ],
       navWrap: 'navWrap',
@@ -43,7 +43,7 @@ export default {
     let route = this.$route.name
     if (route === 'Login') {
       this.curIndex = 2
-    } else if (route === 'About') {
+    } else if (route === 'Post') {
       this.curIndex = 1
     } else if (route === 'Index') {
       this.curIndex = 0
@@ -73,7 +73,7 @@ header {
   padding:.25rem .625rem;
   display: flex;
   align-items: center;
-  background: #888;
+  background: #eee;
   border-radius: 1rem;
   box-sizing: border-box;
   color: #444;
@@ -113,6 +113,8 @@ header {
 
 .panel-wrap {
   width: 98%;
+  min-height: 100vh;
+  box-sizing: border-box;
   overflow: hidden;
   padding-top: 8.625rem;
   margin: 0 auto;
@@ -146,5 +148,46 @@ header {
 .good-tag {
   color: #fff;
   background: #e6be68;
+}
+.form-wrap {
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border-radius: 6px;
+  padding: 1.875rem;
+  box-sizing: border-box;
+  margin-top: 0.3125rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.form-wrap > div:not(:first-child), .form-wrap > button{
+  margin-top: 1.25rem;
+}
+.height-20{
+  height: 20rem;
+}
+.input-wrap {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2.5rem;
+}
+.border-input {
+  border-bottom: 1px solid #444;
+}
+.input-content {
+  height: 100%;
+  flex: 1;
+  font-size: 1rem;
+  padding-left: 0.625rem;
+}
+.mint-button--primary{
+  background-color: #444;
+}
+.mint-button--primary.is-plain{
+  color: #444;
+  border: 1px solid #444;
 }
 </style>

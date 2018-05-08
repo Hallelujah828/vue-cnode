@@ -22,10 +22,11 @@
   outline:none;
 }
   
-.clear-select{
+.clear-select, .clear-textarea{
   appearance:none;
   border:none;
-  background-color:#fff;
+  outline: none;
+  background-color: transparent;
 }
 
 .clear-select::-ms-expand { 

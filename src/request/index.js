@@ -1,8 +1,6 @@
 import axios from 'axios'
 import { Indicator } from 'mint-ui'
 
-const API = 'https://cnodejs.org/api/v1'
-
 export function request (url, method = 'GET', loading = false) {
   return new Promise((resolve, reject) => {
     if (loading) {
@@ -10,7 +8,7 @@ export function request (url, method = 'GET', loading = false) {
     }
     axios({
       method: method,
-      url: API + url
+      url: '/api' + url
     }).then((res) => {
       resolve(res.data)
       Indicator.close()
@@ -42,5 +40,8 @@ export default {
   },
   Delcollect (id, token) {
     return request(`/post/topic_collect/de_collect?accesstoken=${token}&topic_id=${id}`, 'POST')
+  },
+  PostTopic (form) {
+    return request(`/topics?${form}`, 'POST', true)
   }
 }

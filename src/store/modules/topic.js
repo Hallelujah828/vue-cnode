@@ -9,22 +9,10 @@ const state = {
   jobList: { tab: 'job', value: [], page: 0 }
 }
 
-const getters = {
-  allValue: state => state.allList.value,
-  goodValue: state => state.goodList.value,
-  shareValue: state => state.shareList.value,
-  askValue: state => state.askList.value,
-  jobValue: state => state.jobList.value
-}
-
 const mutations = {
   [types.GET_TOPICS_LIST] (state, res) {
     let formatList = res.data
-    if (state[res.topicsList].page <= 1) {
-      state[res.topicsList].value = formatList
-    } else {
-      state[res.topicsList].value = state[res.topicsList].value.concat(formatList)
-    }
+    state[res.topicsList].value = state[res.topicsList].value.concat(formatList)
   },
   [types.GET_TOPICS_PAGE] (state, topicsList) {
     state[topicsList].page += 1
@@ -45,7 +33,6 @@ const actions = {
 
 export default {
   state,
-  getters,
   mutations,
   actions
 }

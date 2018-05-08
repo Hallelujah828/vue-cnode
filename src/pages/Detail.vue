@@ -27,7 +27,7 @@
         <p class="star-font">{{topicDetail.data.is_collect?'已':''}}收藏</p>
       </div>
     </div>
-    <div class="topic_content">
+    <div class="topic-content">
       <h1 class="topic-title">{{topicDetail.data.title}}</h1>
       <div v-html="topicDetail.data.content" class="panel"></div>
       <div class="comment-wrap" id="comment">
@@ -43,6 +43,10 @@
               <span class="good-font">{{item.ups.length}}</span>
             </div>
           </div>
+        </div>
+        <div class="btm-empty">
+          <i class="iconfont icon-ghost"></i>
+          <span>啊偶，没有啦～</span>
         </div>
       </div>
     </div>
@@ -126,7 +130,7 @@ export default {
 .info-font {
   margin-left: 0.375rem;
 }
-.topic_content {
+.topic-content {
   background: #fff;
   padding: 0.625rem;
   box-sizing: border-box;
@@ -247,6 +251,7 @@ div pre.prettyprint {
 .preview p {
   white-space: pre-wrap;
   word-wrap: break-word;
+  word-break: break-word;
   line-height: 2rem;
   margin: 1rem 0;
 }
@@ -359,5 +364,12 @@ textarea#title {
 }
 .good-font {
   font-size: 0.875rem;
+}
+.btm-empty{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 0 .625rem 0;
+  font-size: .875rem;
 }
 </style>

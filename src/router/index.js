@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/pages/Index'
-import About from '@/pages/About'
+import Post from '@/pages/Post'
 import Login from '@/pages/Login'
 import Detail from '@/pages/Detail'
 
@@ -16,9 +16,9 @@ export default new Router({
       component: Index
     },
     {
-      path: '/about',
-      name: 'About',
-      component: About
+      path: '/post',
+      name: 'Post',
+      component: Post
     },
     {
       path: '/login',
@@ -29,6 +29,11 @@ export default new Router({
       path: '/detail/:id',
       name: 'Detail',
       component: Detail
+    },
+    {
+      path: '*',
+      redirect: '/',
+      component: Index
     }
   ]
 })
